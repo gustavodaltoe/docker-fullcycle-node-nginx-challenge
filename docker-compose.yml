@@ -11,6 +11,7 @@ services:
     networks:
       - node-network
     tty: true
+    restart: always
     ports:
       - "3000:3000"
     depends_on:
