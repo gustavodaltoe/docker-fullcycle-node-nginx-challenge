@@ -10,8 +10,26 @@ const config = {
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
 
-const sql = `INSERT INTO people(name) values('Gustavo')`
-connection.query(sql)
+function populate() {
+  const sql = `INSERT INTO people(name) values('Gustavo')`
+  connection.query(sql)
+}
+
+const peopleTableExistsQuery = `SELECT count(1) as tableExists FROM information_schema.TABLES WHERE (TABLE_SCHEMA = '${config.database}') AND (TABLE_NAME = 'people')`;
+connection.query(peopleTableExistsQuery, (err, result) => {
+  if (!result[0].tableExists) {
+    connection.query(`CREATE TABLE people (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255))`, (err, result) => {
+      if (err) {
+        console.log(err)
+        return
+      }
+      populate()
+    })
+    return
+  }
+  populate()
+});
+
 
 app.get('/', (req,res) => {
   const connection = mysql.createConnection(config)
