@@ -7,6 +7,7 @@ services:
     container_name: node-nginx-app
     volumes:
       - ./node:/app
+      - /app/node_modules
     networks:
       - node-network
     tty: true
