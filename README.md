@@ -8,3 +8,8 @@ Desafio do curso fullcycle para criar uma aplicação com docker e docker-compos
 - Lista de nomes cadastrada no banco de dados.
 ```
 
+## Como Rodar
+
+`docker-compose up -d`
+
+Abra o navegador em `http://localhost:8080`
